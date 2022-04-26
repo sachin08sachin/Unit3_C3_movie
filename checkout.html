@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <style> h1{
+      margin-right:  5px;
+    }</style>
+  </head>
+  <body>
+    <div id="navbar">
+      <h1>Checkout | Cost: 100/seat</h1>
+      <h1 id="wallet"></h1>
+      <!-- Display the wallet amount here inside h1 tag with id as "wallet". Note only amount, no extra text. Like 500 not Rs 500 -->
+    </div>
+    <div id="user-detail">
+      <!-- input field to accept user name with id as "user_name"  -->
+      <input type="text" id="user_name" placeholder="enter name">
+      <!-- input field to accept number of seats with id as "number_of_seats"  -->
+      <input type="number" id="number_of_seats" placeholder="enter no. of seats">
+      <!-- A submit button to confirm booking with id as "confirm"  -->
+      <button id="confirm" onclick="final()">confirm </button>
+    </div>
+
+    <div id="movie">
+      <!-- Append the selected movie for booking here -->
+      <!-- movie should have title and image  -->
+      <!-- It should be the same movie you selected for booking  -->
+    </div>
+  </body>
+</html>
+<script >
+  var total = localStorage.getItem("amount") || 0;
+// var getamount = localStorage.getItem("amount");
+console.log(total)
+document.getElementById("wallet").innerText=total;
+
+var checkmov = JSON.parse(localStorage.getItem("movie"));
+
+var box = document.createElement("div");
+
+var title = document.createElement("h4");
+          title.innerText = checkmov.Title ;
+
+        var img = document.createElement("img")
+        img.src = checkmov.Poster;
+        box.append(title,img);
+
+        document.getElementById("movie").append(box);
+         
+        var sum=0;
+        function final(){
+         var seats= document.getElementById("number_of_seats").value;
+         
+         if(total<seats*100){
+             alert("insufficient balance!")
+         }
+         else{
+
+           sum =Number(total)  - Number(seats*100);
+           localStorage.setItem("amount",sum);
+           alert("booking successfull!")  
+          
+         }
+         window.location.reload()
+
+        }
+
+</script>
